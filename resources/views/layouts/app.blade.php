@@ -10,7 +10,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     {{--  CKEditor  --}}
-    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.3.1/ckeditor5.css">
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.0.0/ckeditor5.css" />
     <style>
         /* This selector targets the editable element (excluding comments). */
         .ck-editor__editable_inline:not(.ck-comment__input *) {
@@ -29,58 +29,46 @@
     @yield('content')
 
     <script>
-        function closeDropdown() {
-            const dropdownMenu = document.querySelector('#navbar-modal')
-            dropdownMenu.style.display = 'none'
+        function closeModal() {
+            const modal = document.querySelector('#navbar-modal')
+            modal.style.display = 'none'
         }
 
-        function openDropdown() {
-            const dropdownMenu = document.querySelector('#navbar-modal')
-            dropdownMenu.style.display = 'block'
+        function openModal() {
+            const modal = document.querySelector('#navbar-modal')
+            modal.style.display = 'block'
+        }
+
+        function toggleOptionDropdown() {
+            const dropdown = document.getElementById('option-dropdown');
+            dropdown.classList.toggle('hidden');
         }
     </script>
 
-    <script type="importmap">
-        {
-            "imports": {
-                "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.3.1/ckeditor5.js",
-                "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.3.1/"
-            }
-        }
-    </script>
-    <script type="module">
-        import {
+    <script src="https://cdn.ckeditor.com/ckeditor5/44.0.0/ckeditor5.umd.js"></script>
+
+    <script>
+        const ckeditorkey = "{{ config('app.ckeditor_key') }}"
+        const {
             ClassicEditor,
             Essentials,
-            Paragraph,
             Bold,
             Italic,
-            Font
-        } from 'ckeditor5';
+            Font,
+            Paragraph
+        } = CKEDITOR;
 
         ClassicEditor
-            .create(document.querySelector('#basic-example'), {
-                height: '500px',
-                plugins: [Essentials, Paragraph, Bold, Italic, Font],
+            .create(document.querySelector('#editor'), {
+                licenseKey: ckeditorkey,
+                plugins: [Essentials, Bold, Italic, Font, Paragraph],
                 toolbar: [
                     'undo', 'redo', '|', 'bold', 'italic', '|',
                     'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
                 ]
             })
-            .then(editor => {
-                window.editor = editor;
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
-    {{--  <!-- A friendly reminder to run on a server, remove this during the integration. -->  --}}
-    <script>
-        window.onload = function() {
-            if (window.location.protocol === "file:") {
-                alert("This sample requires an HTTP server. Please serve this file with a web server.");
-            }
-        };
+            .then( /* ... */ )
+            .catch( /* ... */ );
     </script>
 </body>
 

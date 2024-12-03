@@ -14,6 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'ckeditor_key' => env('CKEDITOR_KEY'),
 
     /*
     |--------------------------------------------------------------------------

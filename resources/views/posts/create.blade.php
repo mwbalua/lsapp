@@ -20,19 +20,22 @@
             <div>
                 <label for="basic-example" class="block text-sm/6 font-medium">Body</label>
                 <div class="mt-2 flex flex-col gap-1 w-full rounded text-black">
-                    <textarea name="body" id="basic-example"></textarea>
+                    <textarea name="body" id="editor"></textarea>
                     @error('body')
                         <small class="text-red-500 italic">{{ $message }}</small>
                     @enderror
                 </div>
             </div>
 
-            <input type="file" name="cover_image"
-                class="block w-full border border-zinc-300 rounded text-sm text-black bg-white
+            <div>
+                <label for="basic-example" class="block text-sm/6 font-medium">Cover Image</label>
+                <input type="file" name="cover_image"
+                    class="block w-full border border-zinc-300 rounded text-sm text-black bg-white
                 file:mr-4 file:py-3 file:px-5 file:border-0
                 file:text-sm file:font-semibold
                 file:bg-zinc-200 file:text-black
                 hover:file:bg-zinc-100 file:duration-300" />
+            </div>
 
             <div class="pt-3 flex justify-between">
                 <a href="/posts" class="block bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2">Cancel</a>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="max-w-screen-md mx-auto p-6 lg:px-8 mt-28 space-y-3">
+    <div class="max-w-screen-md mx-auto p-6 lg:px-8 mt-24 space-y-3">
         <div class="flex justify-between">
             <a href="/posts" class="text-blue-600 hover:underline">Back to Posts</a>
 
@@ -50,6 +50,12 @@
         <h3 class="mt-4 text-4xl font-semibold">
             {{ $post['title'] }}
         </h3>
+
+        @if ($post->cover_image !== 'noimage.jpg')
+            <div class="py-4 flex justify-center">
+                <img src="/storage/cover_images/{{ $post->cover_image }}" alt="{{ $post->title }}">
+            </div>
+        @endif
 
         <p class="mt-5 line-clamp-3 text-sm">
             {!! $post['body'] !!}

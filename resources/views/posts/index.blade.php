@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="max-w-screen-xl mx-auto p-6 lg:px-8 pt-28 space-y-3 text-sm">
+    <div class="max-w-screen-xl mx-auto p-6 lg:px-8 py-24 lg:py-28 space-y-3 text-sm">
         @if (session('success'))
             <div class="p-3 border border-green-500 rounded-lg bg-green-500/10 text-green-500 italic">
                 {{ session('success') }}
@@ -26,7 +26,7 @@
         {{--  render blog sections  --}}
         @if (count($posts) > 0)
             <div
-                class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 py-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
 
                 @foreach ($posts as $post)
                     <article class="max-w-xl flex flex-col justify-start">
@@ -60,12 +60,11 @@
                             </h3>
 
                             <p class="mt-5 line-clamp-3 text-sm/6 text-gray-600">
-                                @if (strlen($post['body']) > 300)
-                                    {!! substr($post['body'], 0, 300) !!}
+                                @if (strlen(strip_tags($post['body'])) > 300)
+                                    {!! substr(strip_tags($post['body']), 0, 300) . '...' !!}
                                 @else
                                     {!! $post['body'] !!}
                                 @endif
-
                             </p>
                         </div>
 
