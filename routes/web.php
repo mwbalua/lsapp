@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PostController;
@@ -28,7 +29,7 @@ Route::get('/', [PagesController::class, 'index']);
 Route::get('/about', [PagesController::class, 'about']);
 Route::get('/services', [PagesController::class, 'services']);
 
-
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::resource('posts', PostController::class)->except(['index', 'show'])->middleware('auth');
 Route::resource('posts', PostController::class)->only(['index', 'show']);
 

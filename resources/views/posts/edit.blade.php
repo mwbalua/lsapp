@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="max-w-screen-md mx-auto p-6 lg:px-8 mt-28 space-y-3">
+    <div class="max-w-screen-md mx-auto p-6 lg:px-8 mt-24 space-y-3">
         <h1 class="text-4xl">Edit Post: {{ $post->title }}</h1>
 
         <form class="space-y-3" action="/posts/{{ $post->id }}" method="POST">
@@ -27,6 +27,16 @@
                 </div>
             </div>
 
+            <div>
+                <label for="cover_image" class="block text-sm/6 font-medium">Cover Image</label>
+                <input id="cover_image" type="file" name="cover_image"
+                    class="mt-2 block w-full border border-zinc-300 rounded text-sm text-black bg-white
+                file:mr-4 file:py-3 file:px-5 file:border-0
+                file:text-sm file:font-semibold
+                file:bg-zinc-200 file:text-black
+                hover:file:bg-zinc-100 file:duration-300" />
+            </div>
+
             <div class="pt-3 flex justify-between">
 
                 <a href="/posts/{{ $post->id }}"
@@ -38,16 +48,4 @@
 
         </form>
     </div>
-
-    @push('scripts')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.2.0/tinymce.min.js"></script>
-        <script>
-            tinymce.init({
-                selector: 'textarea#description',
-                menubar: false,
-                plugins: 'code table lists image',
-                toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | table | image',
-            });
-        </script>
-    @endpush
 @endsection

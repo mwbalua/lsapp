@@ -9,6 +9,9 @@
     {{--  TailwindCSS  --}}
     <script src="https://cdn.tailwindcss.com"></script>
 
+    {{--  Bootstrap Icons  --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     {{--  CKEditor  --}}
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.3.1/ckeditor5.css">
     <style>
@@ -29,14 +32,19 @@
     @yield('content')
 
     <script>
-        function closeDropdown() {
+        function closeModal() {
             const dropdownMenu = document.querySelector('#navbar-modal')
             dropdownMenu.style.display = 'none'
         }
 
-        function openDropdown() {
+        function openModal() {
             const dropdownMenu = document.querySelector('#navbar-modal')
             dropdownMenu.style.display = 'block'
+        }
+
+        function toggleOptionDropdown() {
+            const dropdown = document.querySelector('#option-dropdown')
+            dropdown.classList.toggle('hidden')
         }
     </script>
 

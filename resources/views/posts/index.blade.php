@@ -26,14 +26,14 @@
         {{--  render blog sections  --}}
         @if (count($posts) > 0)
             <div
-                class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                class="mx-auto mt-10 pb-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
 
                 @foreach ($posts as $post)
                     <article class="max-w-xl flex flex-col justify-start">
                         <div class="w-full flex justify-between">
                             <div class="flex items-center gap-x-4">
-                                <img src="https://picsum.photos/200?random={{ $post->id }}" alt=""
-                                    class="size-10 rounded-full bg-gray-50">
+                                <img src="https://picsum.photos/200?random={{ $post->id }}"
+                                    alt="{{ $post->user->name }}" class="size-10 rounded-full bg-gray-50">
                                 <div class="text-sm/6">
                                     <p class="font-semibold text-gray-900">
                                         {{ $post->user->name }}
@@ -53,20 +53,21 @@
                         </div>
 
                         <div class="group relative">
-                            <h3 class="mt-4 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
-                                <a href="/posts/{{ $post->id }}">
+                            <a href="/posts/{{ $post->id }}">
+                                <h3
+                                    class="mt-4 text-lg/6 font-semibold text-gray-900 group-hover:text-blue-600 duration-300">
                                     {{ $post['title'] }}
-                                </a>
-                            </h3>
+                                </h3>
 
-                            <p class="mt-5 line-clamp-3 text-sm/6 text-gray-600">
-                                @if (strlen($post['body']) > 300)
-                                    {!! substr($post['body'], 0, 300) !!}
-                                @else
-                                    {!! $post['body'] !!}
-                                @endif
+                                <p class="mt-5 line-clamp-3 text-sm/6 text-gray-600">
+                                    @if (strlen($post['body']) > 300)
+                                        {!! substr(strip_tags($post['body']), 0, 300) . '...' !!}
+                                    @else
+                                        {!! $post['body'] !!}
+                                    @endif
 
-                            </p>
+                                </p>
+                            </a>
                         </div>
 
                     </article>

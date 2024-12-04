@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -81,11 +82,26 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->validate([
-            'title' => ['required'],
-            'body' => ['required']
+            'title' => ['required', 'min:3'],
+            'body' => ['required'],
+            'cover_image' => ['image', 'nullable', 'max:1999']
         ]);
 
+        if ($request->hasFile('cover_image')) {
+            $filenameWithExt = $request->file('cover_image')->getClientOriginalExtension();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
+
         $post = Post::findOrFail($id);
+
+        if ($request->hasFile('cover_image')) {
+            $post->cover_image = $fileNameToStore;
+        }
 
         $post->update($data);
 
@@ -96,8 +112,12 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        if(auth()->user()->id !== $post->user_id) {
+        if (auth()->user()->id !== $post->user_id) {
             return redirect('/posts')->with('error', 'Unauthorized');
+        }
+
+        if ($post->cover_image != 'noimage.jpg') {
+            Storage::delete('public/cover_images/' . $post->cover_image);
         }
 
         $post->deleteOrFail();
