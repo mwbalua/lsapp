@@ -11,9 +11,13 @@
                     <a href="/posts"
                         class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 duration-300">View
                         Posts</a>
-                    <a href="/register"
-                        class="text-sm/6 font-semibold text-gray-900 hover:text-blue-600 hover:underline">Create
-                        an account <span aria-hidden="true">→</span></a>
+
+                    @guest
+                        <a href="/register"
+                            class="text-sm/6 font-semibold text-gray-900 hover:text-blue-600 hover:underline">Create
+                            an account <span aria-hidden="true">→</span></a>
+                    @endguest
+
                 </div>
             </div>
         </div>

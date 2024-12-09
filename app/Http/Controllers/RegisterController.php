@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function create() {
+    public function create()
+    {
         return view('pages.register');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $data = $request->validate([
             'name' => ['required'],
             'email' => ['required', 'email'],

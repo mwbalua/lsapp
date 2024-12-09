@@ -15,15 +15,6 @@ class PostsController extends Controller
     //     $this->middleware('auth', ['except' => ['index', 'show']]);
     // }
 
-    public function fetchApiData() {
-        $response = Http::get('https://jsonplaceholder.typicode.com/posts');
-        $data = $response->json();
-
-        // dd($data);
-
-        return view('pages.sample', ['title' => 'Sample Data from API', 'posts' => $data]);
-    }
-
     public function index()
     {
         $posts = Post::with('user')->orderBy('created_at', 'desc')->paginate(3);
@@ -83,7 +74,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
 
         if (auth()->user()->id !== $post->user_id) {
-            return redirect('/posts')->with('error', 'Unauthorized');
+            return redirect('/posts')->with('error', 'Unauthorized to edit post');
         }
 
         return view('posts.edit', ['post' => $post]);
@@ -131,7 +122,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
 
         if (auth()->user()->id !== $post->user_id) {
-            return redirect('/posts')->with('error', 'Unauthorized');
+            return redirect('/posts')->with('error', 'Unauthorized to delete post');
         }
 
         if ($post->cover_image != 'noimage.jpg') {

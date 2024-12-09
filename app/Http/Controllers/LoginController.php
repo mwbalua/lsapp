@@ -7,10 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function create() {
+    public function create()
+    {
         return view('pages.login');
     }
-    public function store(Request $request) {
+
+    public function store(Request $request)
+    {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required']
@@ -27,9 +30,10 @@ class LoginController extends Controller
         ]);
     }
 
-    public function destroy() {
+    public function destroy()
+    {
         Auth::logout();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

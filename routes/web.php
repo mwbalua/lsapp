@@ -18,25 +18,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/register', [RegisterController::class, 'create']);
-Route::post('/register', [RegisterController::class, 'store']);
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [RegisterController::class, 'create']);
+    Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/login', [LoginController::class, 'create'])->name('login');
-Route::post('/login', [LoginController::class, 'store']);
+    Route::get('/login', [LoginController::class, 'create'])->name('login');
+    Route::post('/login', [LoginController::class, 'store']);
+});
+
 Route::delete('/logout', [LoginController::class, 'destroy'])->middleware('auth');
 
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/about', [PagesController::class, 'about']);
 Route::get('/services', [PagesController::class, 'services']);
 
-
-// Route::get('/sample', [PostsController::class, 'fetchApiData']);
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::resource('posts', PostsController::class)->except(['index', 'show'])->middleware('auth');
 Route::resource('posts', PostsController::class)->only(['index', 'show']);
-
-// Route::resource('posts', PostController::class);
-
-Route::get('/about/{id}/{name}', function ($id, $name) {
-    return "This is user " . $name . " with an id of " . $id;
-});

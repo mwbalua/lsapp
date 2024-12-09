@@ -29,7 +29,10 @@
 
     @include('inc.navbar')
 
-    @yield('content')
+    <div class="max-w-screen-xl mx-auto p-6 lg:px-8 py-24 lg:py-28 space-y-3 text-sm">
+        @include('inc.messages')
+        @yield('content')
+    </div>
 
     <script>
         function closeModal() {
