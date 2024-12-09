@@ -32,15 +32,11 @@
             </div>
         @endif
 
-        <div class="flex items-center gap-x-4">
-            <img src="https://picsum.photos/200?random={{ $post->id }}" alt="{{ $post->title }}"
-                class="size-10 rounded-full bg-gray-50">
-            <div class="text-sm/6">
-                <p class="font-semibold text-gray-900">
-                    {{ $post->user->name }}
-                </p>
-                <p class="text-gray-600">Author</p>
-            </div>
+        <div class="text-sm/6">
+            <p class="font-semibold text-gray-900">
+                {{ $post->user->name }}
+            </p>
+            <p class="text-gray-600">Author</p>
         </div>
 
         <div class="flex items-center gap-x-4 text-xs mt-4">
@@ -52,7 +48,7 @@
             {{ $post['title'] }}
         </h3>
 
-        @if (!is_null($post->cover_image) || $post->cover_image == 'noimage.jpg')
+        @if (!is_null($post->cover_image))
             <div class="py-4 flex justify-center">
                 <img src="/storage/cover_images/{{ $post->cover_image }}" alt="{{ $post->title }}">
             </div>

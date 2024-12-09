@@ -4,15 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
-class PostController extends Controller
+class PostsController extends Controller
 {
 
     // equivalent of except(['index', 'show'])->middleware('auth');
     // public function __construct() {
     //     $this->middleware('auth', ['except' => ['index', 'show']]);
     // }
+
+    public function fetchApiData() {
+        $response = Http::get('https://jsonplaceholder.typicode.com/posts');
+        $data = $response->json();
+
+        // dd($data);
+
+        return view('pages.sample', ['title' => 'Sample Data from API', 'posts' => $data]);
+    }
 
     public function index()
     {
@@ -83,21 +93,29 @@ class PostController extends Controller
     {
         $data = $request->validate([
             'title' => ['required', 'min:3'],
-            'body' => ['required'],
-            'cover_image' => ['image', 'nullable', 'max:1999']
+            'body' => ['required']
         ]);
 
         if ($request->hasFile('cover_image')) {
+            // Get filename with the extension
             $filenameWithExt = $request->file('cover_image')->getClientOriginalExtension();
+
+            // Get just filename
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+
+            // Get just ext
             $extension = $request->file('cover_image')->getClientOriginalExtension();
+
+            // File name to store
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+
+            // Upload image
             $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
-        } else {
-            $fileNameToStore = 'noimage.jpg';
         }
 
         $post = Post::findOrFail($id);
+
+        // dd($post);
 
         if ($request->hasFile('cover_image')) {
             $post->cover_image = $fileNameToStore;

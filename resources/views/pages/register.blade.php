@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    <div class="min-h-screen w-full p-6 lg:px-8 flex justify-center items-center">
-        <div class="border rounded shadow bg-white text-zinc-900 p-10 space-y-5 w-[520px]">
+    <div class="mt-10 lg:mt-0 min-h-screen w-full p-6 lg:px-8 flex justify-center items-center">
+        <div class="border rounded shadow bg-white text-zinc-900 p-5 lg:p-10 space-y-5 w-[520px]">
             <h1 class="text-3xl text-center font-semibold">Create your Account</h1>
 
             <form action="/register" method="POST" class="space-y-5">

@@ -3,7 +3,7 @@
     <div class="max-w-screen-md mx-auto p-6 lg:px-8 mt-24 space-y-3">
         <h1 class="text-4xl">Edit Post: {{ $post->title }}</h1>
 
-        <form class="space-y-3" action="/posts/{{ $post->id }}" method="POST">
+        <form class="space-y-3" action="/posts/{{ $post->id }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div>
@@ -30,7 +30,7 @@
             <div>
                 <label for="cover_image" class="block text-sm/6 font-medium">Cover Image</label>
                 <input id="cover_image" type="file" name="cover_image"
-                    class="mt-2 block w-full border border-zinc-300 rounded text-sm text-black bg-white
+                    class="block w-full border border-zinc-300 rounded text-sm text-black bg-white
                 file:mr-4 file:py-3 file:px-5 file:border-0
                 file:text-sm file:font-semibold
                 file:bg-zinc-200 file:text-black
