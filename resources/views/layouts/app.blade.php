@@ -29,7 +29,7 @@
 
     @include('inc.navbar')
 
-    <div class="max-w-screen-xl mx-auto p-6 lg:px-8 py-24 lg:py-28 space-y-3 text-sm">
+    <div class="max-w-screen-xl mx-auto p-6 lg:px-8 {{ request()->is('/') ? '' : 'pt-24 lg:pt-28' }} space-y-3 text-sm">
         @include('inc.messages')
         @yield('content')
     </div>
